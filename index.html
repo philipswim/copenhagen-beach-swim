@@ -1,0 +1,894 @@
+<!DOCTYPE html>
+<html lang="da">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Copenhagen Beach Swim 2025</title>
+  <style>
+    * {margin:0;padding:0;box-sizing:border-box;font-family:'Arial',sans-serif;}
+    body {background:linear-gradient(135deg,#f5f5f5 60%,#caf0f8 100%);color:#222;line-height:1.6;}
+    nav {position:fixed;top:0;left:0;width:100%;background:rgba(0,0,0,0.85);padding:15px 30px;display:flex;justify-content:space-between;align-items:center;z-index:10;box-shadow:0 2px 12px rgba(0,0,0,0.15);}
+    nav h2 {color:#fff;font-size:1.7rem;letter-spacing:1px;}
+    nav ul {list-style:none;display:flex;gap:20px;}
+    nav ul li a {color:#fff;text-decoration:none;font-weight:bold;transition:0.3s;font-size:1.1rem;padding:6px 12px;border-radius:6px;}
+    nav ul li a:hover, nav ul li a.active-link {color:#00b4d8;background:#fff2;}
+    header {position:relative;height:100vh;overflow:hidden;display:flex;align-items:center;justify-content:center;text-align:center;color:white;}
+    header video {position:absolute;top:0;left:0;width:100%;height:100%;object-fit:cover;z-index:-2;}
+    header .overlay {position:absolute;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.4);z-index:-1;}
+    header h1 {font-size:4rem;letter-spacing:2px;text-shadow:0 4px 16px #000a;}
+    header p {font-size:1.5rem;margin-top:20px;text-shadow:0 2px 8px #000a;}
+    section {display: none;animation: fadeIn 0.7s;}
+    section.active-section {display: block;}
+    @keyframes fadeIn {from{opacity:0;transform:translateY(30px);}to{opacity:1;transform:translateY(0);}}
+    .program {display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:20px;margin-top:40px;}
+    .card {background:white;padding:20px;border-radius:10px;box-shadow:0 4px 16px rgba(0,0,0,0.13);transition:transform 0.2s;}
+    .card:hover {transform:scale(1.03);box-shadow:0 8px 24px #00b4d833;}
+    .cta-btn {display:inline-block;margin-top:30px;padding:15px 30px;background:#0077b6;color:white;text-decoration:none;font-size:1.2rem;border-radius:8px;transition:0.3s ease;box-shadow:0 2px 8px #00b4d822;}
+    .cta-btn:hover {background:#023e8a;}
+    form {display:flex;flex-direction:column;gap:15px;max-width:500px;margin:0 auto;}
+    form input,form textarea {padding:10px;font-size:1rem;border:1px solid #ccc;border-radius:5px;width:100%;}
+    form button {padding:15px;background:#0077b6;color:white;border:none;font-size:1.1rem;border-radius:8px;cursor:pointer;transition:0.3s;}
+    form button:hover {background:#023e8a;}
+    .map-container {margin-top:40px;width:100%;height:400px;box-shadow:0 2px 12px #00b4d822;border-radius:10px;overflow:hidden;}
+    .gallery-grid {display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:18px;margin-top:30px;}
+    .gallery-item {background:#fff;border-radius:10px;box-shadow:0 2px 10px #00b4d822;overflow:hidden;transition:transform 0.2s;}
+    .gallery-item img,.gallery-item video {width:100%;display:block;}
+    .gallery-item:hover {transform:scale(1.04);}
+    .year-tabs {display:flex;gap:10px;justify-content:center;margin-bottom:20px;}
+    .year-tab {padding:8px 18px;border-radius:6px;background:#e0f7fa;color:#0077b6;font-weight:bold;cursor:pointer;transition:0.2s;}
+    .year-tab.active {background:#00b4d8;color:#fff;}
+    .results-year {margin-bottom:30px;}
+    .results-table {width:100%;border-collapse:collapse;margin-top:10px;}
+    .results-table th,.results-table td {border:1px solid #ccc;padding:8px;}
+    .results-table th {background:#caf0f8;}
+    footer {text-align:center;padding:20px;background:#111;color:#fff;margin-top:60px;box-shadow:0 -2px 12px #00b4d822;}
+    .hide-section { display: none !important; }
+    .show-section { display: block !important; }
+    .dropdown {position:relative;}
+    .dropdown-content {
+      display:none;
+      position:absolute;
+      background:rgba(0,0,0,0.95);
+      min-width:180px;
+      box-shadow:0 8px 16px rgba(0,0,0,0.15);
+      z-index:20;
+      top:100%;
+      left:0;
+      border-radius:0 0 8px 8px;
+      padding:0;
+    }
+    .dropdown:hover .dropdown-content, .dropdown:focus-within .dropdown-content {
+      display:block;
+    }
+    .dropdown-content li {list-style:none;}
+    .dropdown-content a {
+      color:#fff;
+      padding:10px 18px;
+      text-decoration:none;
+      display:block;
+      font-size:1rem;
+      border-radius:0;
+      background:none;
+      transition:0.2s;
+    }
+    .dropdown-content a:hover {
+      background:#00b4d8;
+      color:#fff;
+    }
+    #lang-switch {
+      background: #fff;
+      border-radius: 16px;
+      box-shadow: 0 2px 12px #00b4d822;
+      padding: 8px 18px;
+      margin-left: 30px;
+      border: 2px solid #00b4d8;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      position: relative;
+      z-index: 20;
+    }
+    .lang-btn {
+      background: none;
+      border: none;
+      cursor: pointer;
+      font-size: 2rem;
+      padding: 4px 10px;
+      border-radius: 10px;
+      transition: 0.2s;
+      outline: none;
+      box-shadow: 0 1px 6px #00b4d822;
+    }
+    .lang-btn.active {
+      background: #00b4d8;
+      color: #fff;
+      box-shadow: 0 2px 12px #00b4d822;
+      border: 2px solid #0077b6;
+    }
+   
+    * {margin:0;padding:0;box-sizing:border-box;font-family:'Arial',sans-serif;}
+    body {
+      background: linear-gradient(135deg,#f5f5f5 60%,#caf0f8 100%);
+      color: #222;
+      line-height: 1.7;
+      font-size: 1.08rem;
+      padding-top: 80px;
+    }
+    nav {position:fixed;top:0;left:0;width:100%;background:rgba(0,0,0,0.85);padding:15px 30px;display:flex;justify-content:space-between;align-items:center;z-index:10;box-shadow:0 2px 12px rgba(0,0,0,0.15);}
+    nav h2 {color:#fff;font-size:1.7rem;letter-spacing:1px;}
+    nav ul {list-style:none;display:flex;gap:20px;}
+    nav ul li a {color:#fff;text-decoration:none;font-weight:bold;transition:0.3s;font-size:1.1rem;padding:6px 12px;border-radius:6px;}
+    nav ul li a:hover, nav ul li a.active-link {color:#00b4d8;background:#fff2;}
+    header {position:relative;height:100vh;overflow:hidden;display:flex;align-items:center;justify-content:center;text-align:center;color:white;}
+    header video {position:absolute;top:0;left:0;width:100%;height:100%;object-fit:cover;z-index:-2;}
+    header .overlay {position:absolute;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.4);z-index:-1;}
+    header h1 {font-size:4rem;letter-spacing:2px;text-shadow:0 4px 16px #000a;}
+    header p {font-size:1.5rem;margin-top:20px;text-shadow:0 2px 8px #000a;}
+    section {
+      margin: 0 auto 60px auto;
+      max-width: 900px;
+      background: #fff;
+      border-radius: 18px;
+      box-shadow: 0 4px 32px #00b4d822;
+      padding: 40px 32px 32px 32px;
+      transition: box-shadow 0.2s;
+    }
+    section.active-section {
+      box-shadow: 0 8px 40px #00b4d844;
+    }
+    h1, h2, h3, h4 {
+      font-family: 'Arial Rounded MT Bold', Arial, sans-serif;
+      color: #0077b6;
+      margin-bottom: 18px;
+      font-weight: bold;
+    }
+    h1 { font-size: 3.2rem; }
+    h2 { font-size: 2.1rem; }
+    h3 { font-size: 1.3rem; }
+    h4 { font-size: 1.1rem; }
+    p, ul, li {
+      font-size: 1.08rem;
+      margin-bottom: 10px;
+    }
+    .program {display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:20px;margin-top:40px;}
+    .card {
+      background: #f8faff;
+      border-radius: 14px;
+      box-shadow: 0 2px 16px #00b4d822;
+      padding: 24px 18px;
+      margin-bottom: 10px;
+      border: 1px solid #e0f7fa;
+    }
+    .card:hover {
+      transform: scale(1.03);
+      box-shadow: 0 8px 32px #00b4d844;
+      border-color: #00b4d8;
+    }
+    .cta-btn {
+      background: linear-gradient(90deg,#00b4d8 60%,#0077b6 100%);
+      color: #fff;
+      border: none;
+      font-size: 1.15rem;
+      font-weight: bold;
+      border-radius: 10px;
+      padding: 15px 36px;
+      margin-top: 24px;
+      box-shadow: 0 2px 12px #00b4d822;
+      transition: background 0.2s, box-shadow 0.2s;
+      cursor: pointer;
+      text-decoration: none;
+      display: inline-block;
+    }
+    .cta-btn:hover {
+      background: linear-gradient(90deg,#0077b6 60%,#00b4d8 100%);
+      box-shadow: 0 4px 24px #00b4d844;
+    }
+    nav {
+      box-shadow: 0 2px 16px #00b4d822;
+    }
+    .gallery-grid {
+      background: #f8faff;
+      border-radius: 14px;
+      box-shadow: 0 2px 16px #00b4d822;
+      padding: 18px;
+    }
+    .gallery-item {
+      border-radius: 12px;
+      box-shadow: 0 2px 10px #00b4d822;
+      background: #fff;
+      overflow: hidden;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .gallery-item:hover {
+      transform: scale(1.04);
+      box-shadow: 0 6px 24px #00b4d844;
+    }
+    .year-tabs, .praktisk-tabs {
+      margin-bottom: 24px;
+    }
+    .year-tab, .praktisk-tab {
+      font-size: 1.08rem;
+      border-radius: 8px;
+      padding: 10px 24px;
+      background: #e0f7fa;
+      color: #0077b6;
+      font-weight: bold;
+      cursor: pointer;
+      border: none;
+      margin-right: 6px;
+      box-shadow: 0 1px 6px #00b4d822;
+      transition: background 0.2s, color 0.2s;
+    }
+    .year-tab.active, .praktisk-tab.active {
+      background: #00b4d8;
+      color: #fff;
+      box-shadow: 0 2px 12px #00b4d822;
+    }
+    form {
+      background: #f8faff;
+      border-radius: 14px;
+      box-shadow: 0 2px 16px #00b4d822;
+      padding: 24px;
+      margin-top: 18px;
+    }
+    form input,form textarea {padding:10px;font-size:1rem;border:1px solid #ccc;border-radius:5px;width:100%;}
+    form button {padding:15px;background:#0077b6;color:white;border:none;font-size:1.1rem;border-radius:8px;cursor:pointer;transition:0.3s;}
+    form button:hover {background:#023e8a;}
+    .map-container {
+      margin-top: 32px;
+      border-radius: 14px;
+      box-shadow: 0 2px 16px #00b4d822;
+      overflow: hidden;
+    }
+    .results-year {margin-bottom:30px;}
+    .results-table {width:100%;border-collapse:collapse;margin-top:10px;}
+    .results-table th,.results-table td {border:1px solid #ccc;padding:8px;}
+    .results-table th {background:#caf0f8;}
+    footer {
+      background: #0077b6;
+      color: #fff;
+      border-radius: 0 0 18px 18px;
+      box-shadow: 0 -2px 16px #00b4d822;
+      font-size: 1.08rem;
+      margin-top: 60px;
+      padding: 28px 0 18px 0;
+    }
+    .hide-section { display: none !important; }
+    .show-section { display: block !important; }
+    .dropdown {position:relative;}
+    .dropdown-content {
+      display:none;
+      position:absolute;
+      background:rgba(0,0,0,0.95);
+      min-width:180px;
+      box-shadow:0 8px 16px rgba(0,0,0,0.15);
+      z-index:20;
+      top:100%;
+      left:0;
+      border-radius:0 0 8px 8px;
+      padding:0;
+    }
+    .dropdown:hover .dropdown-content, .dropdown:focus-within .dropdown-content {
+      display:block;
+    }
+    .dropdown-content li {list-style:none;}
+    .dropdown-content a {
+      color:#fff;
+      padding:10px 18px;
+      text-decoration:none;
+      display:block;
+      font-size:1rem;
+      border-radius:0;
+      background:none;
+      transition:0.2s;
+    }
+    .dropdown-content a:hover {
+      background:#00b4d8;
+      color:#fff;
+    }
+    #lang-switch {
+      background: #fff;
+      border-radius: 16px;
+      box-shadow: 0 2px 12px #00b4d822;
+      padding: 8px 18px;
+      margin-left: 30px;
+      border: 2px solid #00b4d8;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      position: relative;
+      z-index: 20;
+    }
+    .lang-btn {
+      background: none;
+      border: none;
+      cursor: pointer;
+      font-size: 2rem;
+      padding: 4px 10px;
+      border-radius: 10px;
+      transition: 0.2s;
+      outline: none;
+      box-shadow: 0 1px 6px #00b4d822;
+    }
+    .lang-btn.active {
+      background: #00b4d8;
+      color: #fff;
+      box-shadow: 0 2px 12px #00b4d822;
+      border: 2px solid #0077b6;
+    }
+  </style>
+  </style>
+</head>
+<body>
+
+  <nav>
+    <h2 id="site-title">Copenhagen Beach Swim</h2>
+    <ul>
+      <li><a href="#header" class="menu-link" data-section="header">Forside</a></li>
+      <li><a href="#om" class="menu-link" data-section="om">Om</a></li>
+      <li><a href="#program" class="menu-link" data-section="program">Program</a></li>
+     
+      <li class="dropdown">
+        <a href="#praktisk" class="menu-link" data-section="praktisk">Praktisk</a>
+        <ul class="dropdown-content">
+          <li><a href="#praktisk" class="menu-link" data-section="praktisk">Praktisk info</a></li>
+          <li><a href="#under15" class="menu-link" data-section="under15">Deltagere under 15 år</a></li>
+       <li><a href="#kontakt" class="menu-link" data-section="kontakt">Kontakt</a></li>
+        <li><a href="#frivillig" class="menu-link" data-section="frivillig">Frivillig</a></li>
+      </ul>
+      </li>
+      <li><a href="#galleri" class="menu-link" data-section="galleri">Galleri</a></li>
+      <li><a href="#resultater" class="menu-link" data-section="resultater">Resultater</a></li>
+    </ul>
+    <div id="lang-switch" style="display:flex;align-items:center;gap:8px;">
+      <button class="lang-btn" data-lang="da" style="background:none;border:none;cursor:pointer;font-size:1.2rem;">🇩🇰</button>
+      <button class="lang-btn" data-lang="en" style="background:none;border:none;cursor:pointer;font-size:1.2rem;">🇬🇧</button>
+    </div>
+  </nav>
+
+  <header id="header" class="active-section">
+    <video autoplay muted loop>
+      <source src="video.mp4" type="video/mp4" />
+    </video>
+    <div class="overlay"></div>
+    <div>
+      <div id="countdown" style="margin-top:20px; font-size:4rem; font-weight:bold;"></div>
+      <h1>Copenhagen Beach Swim 2025</h1>
+      <p>Åben vand event for alle – Amager Strandpark, 9. august 2025</p>
+      <a href="https://www.sportstiming.dk/event/15443/registration/participants" class="cta-btn">Tilmeld dig nu</a>
+    </div>
+  </header>
+
+  <section id="om">
+    <h2>Din ultimative strandfest</h2>
+    <p><strong>Sand mellem tæerne, saltvand i håret og summer vibes i luften!</strong> Amager Strandpark danner rammen for den fedeste kombination af sport og strandhygge i 2025! Her mødes både nybegyndere og hardcore svømmere til en dag fyldt med action, musik, strandstemning og fællesskab.</p>
+    <p>Vælg mellem distancer fra 1,25 km til 5 km – der er noget for enhver! Start og mål er ved ikoniske Helgoland, og banen snor sig rundt om strandens smukke punkter.</p>
+    <a class="cta-btn" href="https://www.sportstiming.dk/event/15443">Læs mere & tilmeld</a>
+  </section>
+
+  <section id="program">
+    <h2>Program – en dag med hav, fest & fællesskab</h2>
+    <div class="program">
+      <div class="card"><h3>13:00-14:00</h3><p>Ankomst og registrering</p></div>
+      <div class="card"><h3>14:00</h3><p>Race briefing – vi gør dig klar til action</p></div>
+      <div class="card"><h3>14:30</h3><p>BEACH SWIM – samlet start for alle distancer</p></div>
+      <div class="card"><h3>16:30</h3><p>Medaljeoverrækkelse, snacks & chill i strandbaren</p></div>
+      <div class="card"><h3>17:00 →</h3><p>BEACH PARTY – hæng ud hvis du har lyst (tilkøb 140kr)</p></div>
+    </div>
+  </section>
+
+  <section>
+    <h2>Det får du med i prisen</h2>
+    <p>Badehætte, snacks, vand, medaljer til topplaceringer, deltager-medalje for at gennemføre, samt en dag du aldrig glemmer!</p>
+  </section>
+
+  <section id="frivillig">
+    <h2>Bliv frivillig</h2>
+    <p></p>
+  </section>
+
+  <section id="kontakt">
+    <h2>Kontakt os</h2>
+    <p>Har du spørgsmål, vil du deltage eller være frivillig? Skriv til os her:</p>
+
+    <form>
+      <input type="text" placeholder="Dit navn" required />
+      <input type="email" placeholder="Din email" required />
+      <textarea rows="5" placeholder="Din besked" required></textarea>
+      <button type="submit">Send besked</button>
+    </form>
+
+    <div class="map-container">
+      <iframe 
+        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2241.874262520408!2d12.63382367663555!3d55.664211299170975!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x46525214b9b7b0a7%3A0x8dbcfed8d4607c37!2sAmager%20Strandpark!5e0!3m2!1sda!2sdk!4v1710000000000" 
+        width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy">
+      </iframe>
+    </div>
+  </section>
+
+  <!-- Ny sektion til kort -->
+  <section id="praktisk">
+    <h2>Praktisk info</h2>
+    <p>Her kan du se både <strong>parkering</strong> og <strong>ruten</strong> for eventet direkte på kortene.</p>
+
+    <h3>Parkering</h3>
+    <div class="map-container">
+      <iframe 
+        src="https://www.google.com/maps/d/embed?mid=1s1iXijCuydxKKSXjiO7k13mjD3lHpOl4&ehbc=2E312F" 
+        width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy">
+      </iframe>
+    </div>
+
+    <h3>Ruten</h3>
+    <div class="map-container">
+      <iframe 
+        src="https://www.google.com/maps/d/embed?mid=1YcYMhHaiJLwrfqxECw5oPESxzgwb4xzn&ehbc=2E312F" 
+        width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy">
+      </iframe>
+    </div>
+
+    <div class="praktisk-tabs" style="display:flex;gap:10px;justify-content:center;margin:30px 0 10px 0;">
+      <button class="praktisk-tab active" data-tab="info">Generel info</button>
+      <button class="praktisk-tab" data-tab="under15">Deltagere under 15 år</button>
+    </div>
+    <div id="praktisk-info" class="praktisk-content">
+      <!-- Her kan du tilføje generel praktisk info hvis ønsket -->
+    </div>
+    <div id="praktisk-under15" class="praktisk-content" style="display:none;max-width:700px;margin:0 auto;">
+      <h3>Deltagere under 15 år</h3>
+      <h4>Deltagelseskrav</h4>
+      <p>Det er muligt for børn under 15 år at deltage i Copenhagen Beach Swim.<br>
+      Det er muligt at svømme alene eller sammen med en voksen ledsager.</p>
+      <ul>
+        <li>En deltager, som er 15 år eller yngre, skal:</li>
+        <ul>
+          <li>Svømme i en våddragt</li>
+          <li>Svømme med en havtaske</li>
+          <li>Være en habil svømmer, der er tryg ved at svømme mindst 1000m uden pause i en pool</li>
+        </ul>
+      </ul>
+      <p>Det er ikke længere et krav, at man skal udfylde og returnere en samtykkeerklæring. I stedet skal man bekræfte deltagelse af barnet i løbet af tilmeldingsprocessen på Sportstiming.</p>
+      <p>Deltagelse er på forældre og værges ansvar.</p>
+      <h4>Tal med barnet om deltagelsen</h4>
+      <p>Når man har deltagere under 15 år, som deltagere, er det vigtigt at have overvejet og snakket om situationer, som kan opstå, når man deltager i et åbent vand arrangement med mange deltagere.</p>
+      <ul>
+        <li>Registrering og ventetid i opmarchbåsene før start</li>
+        <li>Starten kan være forvirrende med mange svømmere på begrænset plads</li>
+        <li>Vandtemperaturen er ofte koldere end i svømmebassinet</li>
+        <li>Sigtbarheden under vand er begrænset, og man kan ikke se/røre bunden</li>
+        <li>Det kan blive mørkt under broer og i tunneller, især til Swim By Night</li>
+        <li>Hvis man bliver utryg, kan man altid tilkalde hjælp ved livredderne</li>
+        <li>Efter svømmeturen: chip afmonteres, medalje, snack/frugt/vand og afhentning af tøj</li>
+      </ul>
+      <p>Vi håber ovenstående er med til at forbedre din og dit barns oplevelse af at deltage i Copenhagen Beach Swim.</p>
+    </div>
+  </section>
+
+  <section id="galleri">
+    <h2>Galleri</h2>
+    <div class="year-tabs">
+      <div class="year-tab active" data-year="2025">2025</div>
+      <div class="year-tab" data-year="2024">2024</div>
+    </div>
+    <div class="gallery-grid" id="gallery-2025"></div>
+    <div class="gallery-grid" id="gallery-2024" style="display:none;"></div>
+  </section>
+
+  <section id="resultater">
+    <h2>Resultater</h2>
+    <div class="year-tabs">
+      <div class="year-tab active" data-year="2025">2025</div>
+      <div class="year-tab" data-year="2024">2024</div>
+    </div>
+    <div class="results-year" id="results-2025">
+      <h3>Resultater 2025</h3>
+      <a class="cta-btn" href="https://www.sportstiming.dk/event/15443/results" target="_blank">Se resultater for 2025 på Sportstiming</a>
+    </div>
+    <div class="results-year" id="results-2024" style="display:none;">
+      <h3>Resultater 2024</h3>
+      <a class="cta-btn" href="https://www.sportstiming.dk/event/15000/results" target="_blank">Se resultater for 2024 på Sportstiming</a>
+    </div>
+  </section>
+
+  <section id="under15">
+    <h2>Deltagere under 15 år</h2>
+    <h3>Deltagelseskrav</h3>
+    <p>Det er muligt for børn under 15 år at deltage i Copenhagen Beach Swim.<br>
+    Det er muligt at svømme alene eller sammen med en voksen ledsager.</p>
+    <ul>
+      <li>En deltager, som er 15 år eller yngre, skal:</li>
+      <ul>
+        <li>Svømme i en våddragt</li>
+        <li>Svømme med en havtaske</li>
+        <li>Være en habil svømmer, der er tryg ved at svømme mindst 1000m uden pause i en pool</li>
+      </ul>
+    </ul>
+    <p>Det er ikke længere et krav, at man skal udfylde og returnere en samtykkeerklæring. I stedet skal man bekræfte deltagelse af barnet i løbet af tilmeldingsprocessen på Sportstiming.</p>
+    <p>Deltagelse er på forældre og værges ansvar.</p>
+    <h3>Tal med barnet om deltagelsen</h3>
+    <p>Når man har deltagere under 15 år, som deltagere, er det vigtigt at have overvejet og snakket om situationer, som kan opstå, når man deltager i et åbent vand arrangement med mange deltagere.</p>
+    <ul>
+      <li>Registrering og ventetid in opmarchbåsene før start</li>
+      <li>Starten kan være forvirrende med mange svømmere på begrænset plads</li>
+      <li>Vandtemperaturen er ofte koldere end i svømmebassinet</li>
+      <li>Sigtbarheden under vand er begrænset, og man kan ikke se/røre bunden</li>
+      <li>Det kan blive mørkt under broer og i tunneller, især til Swim By Night</li>
+      <li>Hvis man bliver utryg, kan man altid tilkalde hjælp ved livredderne</li>
+      <li>Efter svømmeturen: chip afmonteres, medalje, snack/frugt/vand og afhentning af tøj</li>
+    </ul>
+    <p>Vi håber ovenstående er med til at forbedre din og dit barns oplevelse af at deltage i Copenhagen Beach Swim.</p>
+  </section>
+
+  <footer>
+    <p>&copy; 2025 Copenhagen Beach Swim | Kontakt: cbs@sttsvoem.dk | Tlf: 41104020</p>
+  </footer>
+
+</body>
+
+<script>
+  // Kontaktformular: vis tak-besked og nulstil formular
+  const kontaktForm = document.querySelector('#kontakt form');
+  if (kontaktForm) {
+    kontaktForm.addEventListener('submit', function(e) {
+      e.preventDefault();
+      // Vis tak-besked
+      let msg = document.getElementById('kontakt-besked');
+      if (!msg) {
+        msg = document.createElement('div');
+        msg.id = 'kontakt-besked';
+        msg.style.margin = '18px 0';
+        msg.style.background = '#e0f7fa';
+        msg.style.color = '#0077b6';
+        msg.style.padding = '16px';
+        msg.style.borderRadius = '10px';
+        msg.style.fontWeight = 'bold';
+        kontaktForm.parentNode.insertBefore(msg, kontaktForm.nextSibling);
+      }
+      msg.textContent = 'Tak for din henvendelse! Vi vender tilbage hurtigst muligt.';
+      kontaktForm.reset();
+    });
+  }
+  // Sæt dato for eventstart (9. august 2025 kl. 13:00)
+  const eventDate = new Date("August 9, 2025 13:00:00").getTime();
+
+  const countdownEl = document.getElementById("countdown");
+
+  const timer = setInterval(() => {
+    const now = new Date().getTime();
+    const distance = eventDate - now;
+
+    if (distance < 0) {
+      clearInterval(timer);
+      countdownEl.innerHTML = "Eventet er i gang!";
+      return;
+    }
+
+    const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+    const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+    const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+    const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+    countdownEl.innerHTML = `${days}d : ${hours}t : ${minutes}m : ${seconds}s`;
+  }, 1000);
+
+
+  // Menu/sektion vis/skjul logik med smooth scroll
+  const menuLinks = document.querySelectorAll('.menu-link');
+  const allSections = [document.getElementById('header'), ...document.querySelectorAll('section')];
+
+  function updateActiveMenu(sectionId) {
+    document.querySelectorAll('.menu-link').forEach(link => {
+      if (link.getAttribute('data-section') === sectionId) {
+        link.classList.add('active-link');
+      } else {
+        link.classList.remove('active-link');
+      }
+    });
+  }
+
+  function showSection(sectionId) {
+    allSections.forEach(sec => {
+      if (sec && sec.id === sectionId) {
+        sec.classList.add('active-section');
+      } else if (sec) {
+        sec.classList.remove('active-section');
+      }
+    });
+    updateActiveMenu(sectionId);
+  }
+
+  menuLinks.forEach(link => {
+    link.addEventListener('click', function(e) {
+      e.preventDefault();
+      const section = this.getAttribute('data-section');
+      showSection(section);
+      // Smooth scroll til sektionen hvis den findes
+      const target = document.getElementById(section);
+      if (target) {
+        setTimeout(() => {
+          target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }, 50); // lille delay for at sikre visning
+      }
+    });
+  });
+
+  // Vis kun forsiden (header) ved load
+  showSection('header');
+
+  // Automatisk galleri-generering
+  function generateGallery(year, count, ext = 'jpg') {
+    const grid = document.getElementById('gallery-' + year);
+    if (!grid) return;
+    let html = '';
+    for (let i = 1; i <= count; i++) {
+      html += `<div class='gallery-item'><img src='galleri/${year}/billede${i}.${ext}' alt='${year} billede ${i}'></div>`;
+    }
+    grid.innerHTML = html;
+  }
+  // Automatisk galleri-generering med forskellige filnavne
+  function generateGalleryFromList(year, filenames) {
+    const grid = document.getElementById('gallery-' + year);
+    if (!grid) return;
+    let html = '';
+    filenames.forEach(filename => {
+      const ext = filename.split('.').pop().toLowerCase();
+      if (ext === 'mp4' || ext === 'webm' || ext === 'ogg') {
+        html += `<div class='gallery-item'><video controls src='galleri/${year}/${filename}'></video></div>`;
+      } else {
+        html += `<div class='gallery-item'><img src='galleri/${year}/${filename}' alt='${year} billede'></div>`;
+      }
+    });
+    grid.innerHTML = html;
+  }
+  // Skriv filnavne for hvert år her:
+  const billeder2025 = ['billede1.jpg', 'billede2.png', 'video1.mp4'];
+  const billeder2024 = ['img_001.jpg', 'strandfest.png', 'swim2024.jpeg', 'video2.mp4'];
+  generateGalleryFromList(2025, billeder2025);
+  generateGalleryFromList(2024, billeder2024);
+
+  // Praktisk info tabs logik
+  const praktiskTabs = document.querySelectorAll('.praktisk-tab');
+  const praktiskContents = {
+    info: document.getElementById('praktisk-info'),
+    under15: document.getElementById('praktisk-under15')
+  };
+  praktiskTabs.forEach(tab => {
+    tab.addEventListener('click', function() {
+      praktiskTabs.forEach(t => t.classList.remove('active'));
+      this.classList.add('active');
+      const tabName = this.getAttribute('data-tab');
+      Object.keys(praktiskContents).forEach(key => {
+        praktiskContents[key].style.display = key === tabName ? '' : 'none';
+      });
+    });
+  });
+
+  // Udvidet sprogskifter: alle tekster kan oversættes
+const translations = {
+  da: {
+    siteTitle: 'Copenhagen Beach Swim',
+    Forside: 'Forside',
+    Om: 'Om',
+    Program: 'Program',
+    Frivillig: 'Frivillig',
+    Kontakt: 'Kontakt',
+    Praktisk: 'Praktisk',
+    PraktiskInfo: 'Praktisk info',
+    Under15: 'Deltagere under 15',
+    Galleri: 'Galleri',
+    Resultater: 'Resultater',
+    headerTitle: 'Copenhagen Beach Swim 2025',
+    headerDesc: 'Åben vand event for alle – Amager Strandpark, 9. august 2025',
+    tilmeldBtn: 'Tilmeld dig nu',
+    omTitle: 'Din ultimative strandfest',
+    omText1: 'Sand mellem tæerne, saltvand i håret og summer vibes i luften! Amager Strandpark danner rammen for den fedeste kombination af sport og strandhygge i 2025! Her mødes både nybegyndere og hardcore svømmere til en dag fyldt med action, musik, strandstemning og fællesskab.',
+    omText2: 'Vælg mellem distancer fra 1,25 km til 5 km – der er noget for enhver! Start og mål er ved ikoniske Helgoland, og banen snor sig rundt om strandens smukke punkter.',
+    omBtn: 'Læs mere & tilmeld',
+    programTitle: 'Program – en dag med hav, fest & fællesskab',
+    program1: 'Ankomst og registrering',
+    program2: 'Race briefing – vi gør dig klar til action',
+    program3: 'BEACH SWIM – samlet start for alle distancer',
+    program4: 'Medaljeoverrækkelse, snacks & chill i strandbaren',
+    program5: 'BEACH PARTY – hæng ud hvis du har lyst (tilkøb 140kr)',
+    prisTitle: 'Det får du med i prisen',
+    prisText: 'Badehætte, snacks, vand, medaljer til topplaceringer, deltager-medalje for at gennemføre, samt en dag du aldrig glemmer!',
+    frivilligTitle: 'Bliv frivillig',
+    frivilligText: 'Vil du være en del af holdet bag Copenhagen Beach Swim? Som frivillig hjælper du med at skabe en fantastisk dag for alle deltagere – og du får en unik oplevelse tæt på vandet!<br><br>Frivillig til Copenhagen Beach Swim?<br>På dagen hjælper du med at sikre en fantastisk oplevelse for deltagerne. De frivillige hjælper med alle typer af opgaver før, under og efter eventen. Du kan kende de frivillige på deres røde t-shirt.<br><br><strong>Følgende opgaver bliver blandt andet løftet af frivillige:</strong><ul style="margin-top:10px;margin-bottom:10px;"><li>Udlevering af frugt, vand og kaffe til deltagere</li><li>Oprydning på pladsen under og efter eventen</li><li>Udlevering af medaljer til deltagere</li><li>Hjælp til præmieoverrækkelse</li><li>Hjælp til deltagerne, når de skal i vandet og op igen</li><li>Bagageopmagasinering og udlevering</li><li>Hjælp til registrering</li><li>Overvågning af ruten (sammen med kystlivreddere)</li><li>Pakning af deltagerkuverter</li><li>Alt mulig mand på event pladsen</li><li>og mange andre opgaver</li></ul><br>Kunne du tænke dig at være frivillig til Copenhagen Beach Swim og være en del af en glædelig folkefest, så tag kontakt til CBS på cbs@sttsvoem.dk.',
+    kontaktTitle: 'Kontakt os',
+    kontaktText: 'Har du spørgsmål, vil du deltage eller være frivillig? Skriv til os her:',
+    kontaktBtn: 'Send besked',
+    praktiskTitle: 'Praktisk info',
+    praktiskText: 'Her kan du se både <strong>parkering</strong> og <strong>ruten</strong> for eventet direkte på kortene.',
+    parkering: 'Parkering',
+    ruten: 'Ruten',
+    galleriTitle: 'Galleri',
+    resultaterTitle: 'Resultater',
+    resultater2025: 'Resultater 2025',
+    resultater2024: 'Resultater 2024',
+    seResultater2025: 'Se resultater for 2025 på Sportstiming',
+    seResultater2024: 'Se resultater for 2024 på Sportstiming',
+    under15Title: 'Deltagere under 15 år',
+    under15Krav: 'Deltagelseskrav',
+    under15Text1: 'Det er muligt for børn under 15 år at deltage i Copenhagen Beach Swim.<br>Det er muligt at svømme alene eller sammen med en voksen ledsager.',
+    under15ListTitle: 'En deltager, som er 15 år eller yngre, skal:',
+    under15List1: 'Svømme i en våddragt',
+    under15List2: 'Svømme med en havtaske',
+    under15List3: 'Være en habil svømmer, der er tryg ved at svømme mindst 1000m uden pause i en pool',
+    under15Text2: 'Det er ikke længere et krav, at man skal udfylde og returnere en samtykkeerklæring. I stedet skal man bekræfte deltagelse af barnet i løbet af tilmeldingsprocessen på Sportstiming.',
+    under15Text3: 'Deltagelse er på forældre og værges ansvar.',
+    under15Talk: 'Tal med barnet om deltagelsen',
+    under15Text4: 'Når man har deltagere under 15 år, som deltagere, er det vigtigt at have overvejet og snakket om situationer, som kan opstå, når man deltager i et åbent vand arrangement med mange deltagere.',
+    under15List4_1: 'Registrering og ventetid i opmarchbåsene før start',
+    under15List4_2: 'Starten kan være forvirrende med mange svømmere på begrænset plads',
+    under15List4_3: 'Vandtemperaturen er ofte koldere end i svømmebassinet',
+    under15List4_4: 'Sigtbarheden under vand er begrænset, og man kan ikke se/røre bunden',
+    under15List4_5: 'Det kan blive mørkt under broer og i tunneller, især til Swim By Night',
+    under15List4_6: 'Hvis man bliver utryg, kan man altid tilkalde hjælp ved livredderne',
+    under15List4_7: 'Efter svømmeturen: chip afmonteres, medalje, snack/frugt/vand og afhentning af tøj',
+    under15Text5: 'Vi håber ovenstående er med til at forbedre din og dit barns oplevelse af at deltage i Copenhagen Beach Swim.',
+    footer: '&copy; 2025 Copenhagen Beach Swim | Kontakt: cbs@sttsvoem.dk | Tlf: 41104020'
+  },
+  en: {
+    siteTitle: 'Copenhagen Beach Swim',
+    Forside: 'Home',
+    Om: 'About',
+    Program: 'Programme',
+    Frivillig: 'Volunteer',
+    Kontakt: 'Contact',
+    Praktisk: 'Practical',
+    PraktiskInfo: 'Practical info',
+    Under15: 'Participants under 15',
+    Galleri: 'Gallery',
+    Resultater: 'Results',
+    headerTitle: 'Copenhagen Beach Swim 2025',
+    headerDesc: 'Open water event for everyone – Amager Strandpark, August 9, 2025',
+    tilmeldBtn: 'Sign up now',
+    omTitle: 'Your ultimate beach party',
+    omText1: 'Sand between your toes, salty hair and summer vibes in the air! Amager Strandpark sets the scene for the coolest mix of sport and beach fun in 2025! Beginners and hardcore swimmers meet for a day full of action, music, beach atmosphere and community.',
+    omText2: 'Choose distances from 1.25 km to 5 km – there is something for everyone! Start and finish at iconic Helgoland, and the course winds around the beautiful points of the beach.',
+    omBtn: 'Read more & sign up',
+    programTitle: 'Programme – a day of sea, party & community',
+    program1: 'Arrival and registration',
+    program2: 'Race briefing – get ready for action',
+    program3: 'BEACH SWIM – mass start for all distances',
+    program4: 'Medal ceremony, snacks & chill at the beach bar',
+    program5: 'BEACH PARTY – hang out if you want (extra 140kr)',
+    prisTitle: 'What you get for the price',
+    prisText: 'Swim cap, snacks, water, medals for top placements, finisher medal for completing, and a day you will never forget!',
+    frivilligTitle: 'Become a volunteer',
+    frivilligText: 'Do you want to be part of the team behind Copenhagen Beach Swim? As a volunteer, you help create a fantastic day for all participants – and you get a unique experience close to the water!<br><br>Volunteer at Copenhagen Beach Swim?<br>On the day, help you ensure a fantastic experience for participants. Volunteers help with all types of tasks before, during and after the event. You can recognize the volunteers by their red t-shirt.<br><br><strong>Tasks handled by volunteers include:</strong><ul style="margin-top:10px;margin-bottom:10px;"><li>Handing out fruit, water and coffee to participants</li><li>Cleaning the area during and after the event</li><li>Handing out medals to participants</li><li>Assisting with prize ceremonies</li><li>Helping participants in and out of the water</li><li>Luggage storage and delivery</li><li>Assisting with registration</li><li>Route monitoring (together with lifeguards)</li><li>Packing participant envelopes</li><li>General help on the event site</li><li>and many other tasks</li></ul><br>If you would like to be a volunteer at Copenhagen Beach Swim and be part of a joyful celebration, please contact CBS at cbs@sttsvoem.dk.',
+    kontaktTitle: 'Contact us',
+    kontaktText: 'Do you have questions, want to participate or volunteer? Write to us here:',
+    kontaktBtn: 'Send message',
+    praktiskTitle: 'Practical info',
+    praktiskText: 'Here you can see both <strong>parking</strong> and <strong>the route</strong> for the event directly on the maps.',
+    parkering: 'Parking',
+    ruten: 'Route',
+    galleriTitle: 'Gallery',
+    resultaterTitle: 'Results',
+    resultater2025: 'Results 2025',
+    resultater2024: 'Results 2024',
+    seResultater2025: 'See results for 2025 on Sportstiming',
+    seResultater2024: 'See results for 2024 on Sportstiming',
+    under15Title: 'Participants under 15',
+    under15Krav: 'Participation requirements',
+    under15Text1: 'Children under 15 can participate in Copenhagen Beach Swim.<br>You can swim alone or with an adult companion.',
+    under15ListTitle: 'A participant who is 15 or younger must:',
+    under15List1: 'Swim in a wetsuit',
+    under15List2: 'Swim with a tow float',
+    under15List3: 'Be a capable swimmer, comfortable swimming at least 1000m without a break in a pool',
+    under15Text2: 'It is no longer required to fill out and return a consent form. Instead, you must confirm the child’s participation during the registration process on Sportstiming.',
+    under15Text3: 'Participation is at the responsibility of parents and guardians.',
+    under15Talk: 'Talk to your child about participation',
+    under15Text4: 'When you have participants under 15, it is important to consider and discuss situations that may arise when participating in an open water event with many participants.',
+    under15List4_1: 'Registration and waiting in the start pens before the start',
+    under15List4_2: 'The start can be confusing with many swimmers in limited space',
+    under15List4_3: 'Water temperature is often colder than in the pool',
+    under15List4_4: 'Visibility under water is limited, and you cannot see/touch the bottom',
+    under15List4_5: 'It can get dark under bridges and in tunnels, especially at Swim By Night',
+    under15List4_6: 'If you feel unsafe, you can always call for help from lifeguards',
+    under15List4_7: 'After swimming: chip is removed, medal, snack/fruit/water and pick up your clothes',
+    under15Text5: 'We hope the above helps improve your and your child’s experience of participating in Copenhagen Beach Swim.',
+    footer: '&copy; 2025 Copenhagen Beach Swim | Contact: cbs@sttsvoem.dk | Tel: 41104020'
+  }
+};
+function setLanguage(lang) {
+  document.getElementById('site-title').textContent = translations[lang].siteTitle;
+  // Menu
+  const menuLinks = document.querySelectorAll('.menu-link');
+  menuLinks.forEach(link => {
+    const section = link.getAttribute('data-section');
+    if (translations[lang][section.charAt(0).toUpperCase() + section.slice(1)]) {
+      link.textContent = translations[lang][section.charAt(0).toUpperCase() + section.slice(1)];
+    }
+    if (section === 'praktisk') link.textContent = translations[lang].Praktisk;
+    if (section === 'under15') link.textContent = translations[lang].Under15;
+  });
+  // Header
+  document.querySelector('header h1').textContent = translations[lang].headerTitle;
+  document.querySelector('header p').textContent = translations[lang].headerDesc;
+  document.querySelector('.cta-btn').textContent = translations[lang].tilmeldBtn;
+  // Om
+  document.querySelector('#om h2').textContent = translations[lang].omTitle;
+  document.querySelector('#om p').innerHTML = '<strong>' + translations[lang].omText1 + '</strong>';
+  document.querySelectorAll('#om p')[1].textContent = translations[lang].omText2;
+  document.querySelector('#om .cta-btn').textContent = translations[lang].omBtn;
+  // Program
+  document.querySelector('#program h2').textContent = translations[lang].programTitle;
+  const programCards = document.querySelectorAll('#program .card');
+  programCards[0].querySelector('p').textContent = translations[lang].program1;
+  programCards[1].querySelector('p').textContent = translations[lang].program2;
+  programCards[2].querySelector('p').textContent = translations[lang].program3;
+  programCards[3].querySelector('p').textContent = translations[lang].program4;
+  programCards[4].querySelector('p').textContent = translations[lang].program5;
+  // Pris
+  document.querySelector('section:not([id]) h2').textContent = translations[lang].prisTitle;
+  document.querySelector('section:not([id]) p').textContent = translations[lang].prisText;
+  // Frivillig
+  document.querySelector('#frivillig h2').textContent = translations[lang].frivilligTitle;
+  document.querySelector('#frivillig p').innerHTML = translations[lang].frivilligText;
+  document.querySelector('#frivillig .cta-btn').textContent = translations[lang].frivilligBtn;
+  // Kontakt
+  document.querySelector('#kontakt h2').textContent = translations[lang].kontaktTitle;
+  document.querySelector('#kontakt p').textContent = translations[lang].kontaktText;
+  document.querySelector('#kontakt button').textContent = translations[lang].kontaktBtn;
+  // Praktisk
+  document.querySelector('#praktisk h2').textContent = translations[lang].praktiskTitle;
+  document.querySelector('#praktisk p').innerHTML = translations[lang].praktiskText;
+  document.querySelector('#praktisk h3').textContent = translations[lang].parkering;
+  document.querySelectorAll('#praktisk h3')[1].textContent = translations[lang].ruten;
+  // Galleri
+  document.querySelector('#galleri h2').textContent = translations[lang].galleriTitle;
+  // Resultater
+  document.querySelector('#resultater h2').textContent = translations[lang].resultaterTitle;
+  document.querySelector('#results-2025 h3').textContent = translations[lang].resultater2025;
+  document.querySelector('#results-2025 .cta-btn').textContent = translations[lang].seResultater2025;
+  document.querySelector('#results-2024 h3').textContent = translations[lang].resultater2024;
+  document.querySelector('#results-2024 .cta-btn').textContent = translations[lang].seResultater2024;
+  // Under 15
+  document.querySelector('#under15 h2').textContent = translations[lang].under15Title;
+  document.querySelector('#under15 h3').textContent = translations[lang].under15Krav;
+  document.querySelector('#under15 p').innerHTML = translations[lang].under15Text1;
+  document.querySelector('#under15 ul > li').textContent = translations[lang].under15ListTitle;
+  const under15List = document.querySelectorAll('#under15 ul ul li');
+  under15List[0].textContent = translations[lang].under15List1;
+  under15List[1].textContent = translations[lang].under15List2;
+  under15List[2].textContent = translations[lang].under15List3;
+  document.querySelectorAll('#under15 p')[1].textContent = translations[lang].under15Text2;
+  document.querySelectorAll('#under15 p')[2].textContent = translations[lang].under15Text3;
+  document.querySelectorAll('#under15 h3')[1].textContent = translations[lang].under15Talk;
+  document.querySelectorAll('#under15 p')[3].textContent = translations[lang].under15Text4;
+  const under15List4 = document.querySelectorAll('#under15 ul')[1].children;
+  under15List4[0].textContent = translations[lang].under15List4_1;
+  under15List4[1].textContent = translations[lang].under15List4_2;
+  under15List4[2].textContent = translations[lang].under15List4_3;
+  under15List4[3].textContent = translations[lang].under15List4_4;
+  under15List4[4].textContent = translations[lang].under15List4_5;
+  under15List4[5].textContent = translations[lang].under15List4_6;
+  under15List4[6].textContent = translations[lang].under15List4_7;
+  document.querySelectorAll('#under15 p')[4].textContent = translations[lang].under15Text5;
+  // Footer
+  document.querySelector('footer p').innerHTML = translations[lang].footer;
+}
+// Sæt aktiv klasse på valgt sprog
+function updateLangSwitcher(lang) {
+  document.querySelectorAll('.lang-btn').forEach(btn => {
+    if (btn.getAttribute('data-lang') === lang) {
+      btn.classList.add('active');
+    } else {
+      btn.classList.remove('active');
+    }
+  });
+}
+// Opdater sprogskifter ved klik
+ document.querySelectorAll('.lang-btn').forEach(btn => {
+  btn.addEventListener('click', function() {
+    setLanguage(this.getAttribute('data-lang'));
+    updateLangSwitcher(this.getAttribute('data-lang'));
+  });
+});
+// Sæt standard dansk og aktiv klasse
+setLanguage('da');
+updateLangSwitcher('da');
+</script>
+</html>
