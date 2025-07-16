@@ -135,6 +135,22 @@
     }
     section.active-section {
       box-shadow: 0 8px 40px #00b4d844;
+  /* Facebook nyheder mobilvenlig */
+  .forside-nyheder {
+    padding: 12px 4px 12px 4px !important;
+    max-width: 100vw !important;
+    box-shadow: 0 2px 12px #00b4d822;
+  }
+  .forside-nyheder h2 {
+    font-size: 1.3rem !important;
+    margin-bottom: 12px !important;
+  }
+  .forside-nyheder iframe {
+    height: 350px !important;
+    max-width: 100vw !important;
+    border-radius: 10px !important;
+    box-shadow: 0 2px 12px #00b4d822 !important;
+  }
     }
     h1, h2, h3, h4 {
       font-family: 'Arial Rounded MT Bold', Arial, sans-serif;
@@ -299,6 +315,19 @@
       position: relative;
       z-index: 20;
     }
+    #lang-switch1 {
+      background: #fff;
+      border-radius: 16px;
+      box-shadow: 0 2px 12px #00b4d822;
+      padding: 8px 18px;
+      margin-left: 30px;
+      border: 2px solid #00b4d8;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      position: relative;
+      z-index: 20;
+    }
     .lang-btn {
       background: none;
       border: none;
@@ -316,6 +345,143 @@
       box-shadow: 0 2px 12px #00b4d822;
       border: 2px solid #0077b6;
     }
+    
+    /* Mobilvenlighed: Responsive design */
+@media (max-width: 700px) {
+  body {
+    font-size: 1rem;
+    padding-top: 60px;
+  }
+  nav {
+    padding: 10px 8px;
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  nav h2 {
+    font-size: 1.2rem;
+  }
+  nav ul {
+    gap: 10px;
+  }
+  header h1 {
+    font-size: 2.2rem;
+  }
+  header p {
+    font-size: 1rem;
+  }
+  section, #nyheder {
+    padding: 18px 8px 18px 8px !important;
+    max-width: 100vw;
+  }
+  .program {
+    grid-template-columns: 1fr;
+    gap: 10px;
+  }
+  .gallery-grid {
+    grid-template-columns: 1fr;
+    gap: 10px;
+    padding: 8px;
+  }
+  .map-container {
+    height: 220px;
+  }
+  .year-tabs, .praktisk-tabs {
+    flex-direction: column;
+    gap: 6px;
+  }
+  .cta-btn {
+    padding: 10px 18px;
+    font-size: 1rem;
+  }
+  footer {
+    font-size: 0.95rem;
+    padding: 18px 0 10px 0;
+  }
+}
+
+ .mobile-menu {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.8);
+    z-index: 9999;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+  .mobile-menu.open {
+    display: flex;
+  }
+  .burger {
+    display: none;
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    z-index: 10000;
+    width: 40px;
+    height: 40px;
+    background: none;
+    border: none;
+    cursor: pointer;
+  }
+  .burger span {
+    display: block;
+    width: 30px;
+    height: 4px;
+    margin: 6px auto;
+    background: #fff;
+    border-radius: 2px;
+  }
+  @media (max-width: 768px) {
+    nav {
+      display: block !important;
+    }
+    .burger {
+      display: block;
+    }
+
+    .menu-link {
+      display: none !important;
+    }
+   
+    .menu-link1 {
+      display: block !important;
+    }
+    
+    #lang-switch1 {
+      display: none !important;
+    }
+
+    .mobile-menu {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0,0,0,0.95);
+  z-index: 9999;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  overflow-y: auto;
+}
+.mobile-menu ul {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 32px 0;
+  width: 90vw;
+  max-width: 340px;
+  max-height: 60vh;
+  overflow-y: auto;
+}
+  }
+
+
   </style>
   </style>
 </head>
@@ -323,28 +489,45 @@
 
   <nav>
     <h2 id="site-title">Copenhagen Beach Swim</h2>
-    <ul>
+    <ul id="main-menu">
       <li><a href="#header" class="menu-link" data-section="header">Forside</a></li>
       <li><a href="#om" class="menu-link" data-section="om">Om</a></li>
       <li><a href="#program" class="menu-link" data-section="program">Program</a></li>
-     
       <li class="dropdown">
         <a href="#praktisk" class="menu-link" data-section="praktisk">Praktisk</a>
         <ul class="dropdown-content">
           <li><a href="#praktisk" class="menu-link" data-section="praktisk">Praktisk info</a></li>
           <li><a href="#under15" class="menu-link" data-section="under15">Deltagere under 15 år</a></li>
-       <li><a href="#kontakt" class="menu-link" data-section="kontakt">Kontakt</a></li>
-        <li><a href="#frivillig" class="menu-link" data-section="frivillig">Frivillig</a></li>
-      </ul>
+          <li><a href="#kontakt" class="menu-link" data-section="kontakt">Kontakt</a></li>
+          <li><a href="#frivillig" class="menu-link" data-section="frivillig">Frivillig</a></li>
+        </ul>
       </li>
       <li><a href="#galleri" class="menu-link" data-section="galleri">Galleri</a></li>
       <li><a href="#resultater" class="menu-link" data-section="resultater">Resultater</a></li>
     </ul>
-    <div id="lang-switch" style="display:flex;align-items:center;gap:8px;">
+    <button id="mobile-menu-btn" style="display:none;background:none;border:none;cursor:pointer;font-size:2.2rem;margin-left:auto;align-items:center;justify-content:center;z-index:101;" aria-label="Åbn menu">
+      <span style="display:inline-block;width:32px;height:32px;">
+        <svg width="32" height="32" viewBox="0 0 32 32" fill="none"><circle cx="16" cy="8" r="2.5" fill="#fff"/><circle cx="16" cy="16" r="2.5" fill="#fff"/><circle cx="16" cy="24" r="2.5" fill="#fff"/></svg>
+      </span>
+    </button>
+    <div id="mobile-menu-dropdown" style="display:none;">
+      <a href="#header" class="menu-link" data-section="header">Forside</a>
+      <a href="#om" class="menu-link" data-section="om">Om</a>
+      <a href="#program" class="menu-link" data-section="program">Program</a>
+      <a href="#praktisk" class="menu-link" data-section="praktisk">Praktisk info</a>
+      <a href="#under15" class="menu-link" data-section="under15">Deltagere under 15 år</a>
+      <a href="#kontakt" class="menu-link" data-section="kontakt">Kontakt</a>
+      <a href="#frivillig" class="menu-link" data-section="frivillig">Frivillig</a>
+      <a href="#galleri" class="menu-link" data-section="galleri">Galleri</a>
+      <a href="#resultater" class="menu-link" data-section="resultater">Resultater</a>
+    </div>
+    <div id="lang-switch1" style="display:flex;align-items:center;gap:8px;">
       <button class="lang-btn" data-lang="da" style="background:none;border:none;cursor:pointer;font-size:1.2rem;">🇩🇰</button>
       <button class="lang-btn" data-lang="en" style="background:none;border:none;cursor:pointer;font-size:1.2rem;">🇬🇧</button>
     </div>
   </nav>
+
+ 
 
   <header id="header" class="active-section">
     <video autoplay muted loop>
@@ -357,7 +540,16 @@
       <p>Åben vand event for alle – Amager Strandpark, 9. august 2025</p>
       <a href="https://www.sportstiming.dk/event/15443/registration/participants" class="cta-btn">Tilmeld dig nu</a>
     </div>
-  </header>
+    
+</header>
+  
+
+<section id="header" class="forside-nyheder" style="margin:40px auto 0 auto;max-width:900px;background:#fff;border-radius:18px;box-shadow:0 4px 32px #00b4d822;padding:40px 32px 32px 32px;">
+  <h2 style="color:#0077b6;margin-bottom:24px;font-size:2.2rem;font-family:'Arial Rounded MT Bold',Arial,sans-serif;font-weight:bold;text-align:center;">Seneste nyt</h2>
+  <div style="display:flex;justify-content:center;align-items:center;">
+    <iframe src="https://www.facebook.com/plugins/page.php?href=https%3A%2F%2Fwww.facebook.com%2FCopenhagenBeachSwim&tabs=timeline&width=1920&height=650&small_header=false&adapt_container_width=true&hide_cover=false&show_facepile=true" width="100%" height="650" style="border:none;overflow:hidden;max-width:800px;width:100%;border-radius:16px;box-shadow:0 4px 24px #00b4d822;" scrolling="no" frameborder="0" allowfullscreen="true" allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"></iframe>
+  </div>
+</section>
 
   <section id="om">
     <h2>Din ultimative strandfest</h2>
@@ -523,6 +715,44 @@
     <p>&copy; 2025 Copenhagen Beach Swim | Kontakt: cbs@sttsvoem.dk | Tlf: 41104020</p>
   </footer>
 
+<!-- Mobilmenu start -->
+
+
+<button class="burger" id="burgerBtn" aria-label="Åbn menu">
+  <span></span>
+  <span></span>
+  <span></span>
+</button>
+<div class="mobile-menu" id="mobileMenu">
+  <ul>
+    <li><a href="#header" class="menu-link1" data-section="header">Forside</a></li>
+    <li><a href="#om" class="menu-link1" data-section="om">Om</a></li>
+    <li><a href="#program" class="menu-link1" data-section="program">Program</a></li>
+    <li><a href="#praktisk" class="menu-link1" data-section="praktisk">Praktisk info</a></li>
+    <li><a href="#under15" class="menu-link1" data-section="under15">Deltagere under 15 år</a></li>
+    <li><a href="#kontakt" class="menu-link1" data-section="kontakt">Kontakt</a></li>
+    <li><a href="#frivillig" class="menu-link1" data-section="frivillig">Frivillig</a></li>
+    <li><a href="#galleri" class="menu-link1" data-section="galleri">Galleri</a></li>
+    <li><a href="#resultater" class="menu-link1" data-section="resultater">Resultater</a></li>
+
+  </ul>
+  <div id="lang-switch" style="display:flex;align-items:center;gap:8px;">
+      <button class="lang-btn" data-lang="da" style="background:none;border:none;cursor:pointer;font-size:1.2rem;">🇩🇰</button>
+      <button class="lang-btn" data-lang="en" style="background:none;border:none;cursor:pointer;font-size:1.2rem;">🇬🇧</button>
+    </div>
+</div>
+<script>
+  const burgerBtn = document.getElementById('burgerBtn');
+  const mobileMenu = document.getElementById('mobileMenu');
+  burgerBtn.addEventListener('click', function() {
+    mobileMenu.classList.toggle('open');
+  });
+  mobileMenu.addEventListener('click', function(e) {
+    if (e.target === mobileMenu) {
+      mobileMenu.classList.remove('open');
+    }
+  });
+</script>
 </body>
 
 <script>
@@ -573,18 +803,18 @@
 
 
   // Menu/sektion vis/skjul logik med smooth scroll
-  const menuLinks = document.querySelectorAll('.menu-link');
-  const allSections = [document.getElementById('header'), ...document.querySelectorAll('section')];
+const menuLinks = document.querySelectorAll('.menu-link, .menu-link1');
+const allSections = [document.getElementById('header'), ...document.querySelectorAll('section')];
 
-  function updateActiveMenu(sectionId) {
-    document.querySelectorAll('.menu-link').forEach(link => {
-      if (link.getAttribute('data-section') === sectionId) {
-        link.classList.add('active-link');
-      } else {
-        link.classList.remove('active-link');
-      }
-    });
-  }
+function updateActiveMenu(sectionId) {
+  document.querySelectorAll('.menu-link, .menu-link1').forEach(link => {
+    if (link.getAttribute('data-section') === sectionId) {
+      link.classList.add('active-link');
+    } else {
+      link.classList.remove('active-link');
+    }
+  });
+}
 
   function showSection(sectionId) {
     allSections.forEach(sec => {
@@ -792,6 +1022,38 @@ const translations = {
     footer: '&copy; 2025 Copenhagen Beach Swim | Contact: cbs@sttsvoem.dk | Tel: 41104020'
   }
 };
+
+const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+const mobileMenuDropdown = document.getElementById('mobile-menu-dropdown');
+function closeMobileMenu() {
+  mobileMenuDropdown.style.display = 'none';
+  document.body.style.overflow = '';
+}
+function openMobileMenu() {
+  mobileMenuDropdown.style.display = 'block';
+  document.body.style.overflow = 'hidden';
+}
+if (mobileMenuBtn && mobileMenuDropdown) {
+  mobileMenuBtn.addEventListener('click', function(e) {
+    e.stopPropagation();
+    if (mobileMenuDropdown.style.display === 'block') {
+      closeMobileMenu();
+    } else {
+      openMobileMenu();
+    }
+  });
+  document.addEventListener('click', function(e) {
+    if (mobileMenuDropdown.style.display === 'block' && !mobileMenuDropdown.contains(e.target) && e.target !== mobileMenuBtn) {
+      closeMobileMenu();
+    }
+  });
+  mobileMenuDropdown.querySelectorAll('.menu-link1').forEach(link => {
+    link.addEventListener('click', function() {
+      closeMobileMenu();
+    });
+  });
+}
+
 function setLanguage(lang) {
   document.getElementById('site-title').textContent = translations[lang].siteTitle;
   // Menu
